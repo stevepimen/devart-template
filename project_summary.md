@@ -1,5 +1,4 @@
-# Project Title
-Universe
+# Universe
 
 ## Authors
 - Steve Pimen
@@ -30,8 +29,8 @@ SVG code for The Universe model
         </fieldset>
 ```
 ## Links to External Libraries
-[GitHub Link](https://github.com/stevepimen/devart-template/edit/master/project_summary.md "GitHub Link")
-[D3 Link](http://d3js.org "D3 Link")
+- [GitHub Link](https://github.com/stevepimen/devart-template/edit/master/project_summary.md "GitHub Link")
+- [D3 Link](http://d3js.org "D3 Link")
 
 ## Images & Videos
 
