@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+    <title>Universe</title>
+    <link href="nonASP.css" rel="stylesheet" />
+    
+</head>
+<body>    
+    <h4><a href="http://Webscibiz.com/my/contact.aspx" target="_blank">Contact Us</a>  
+    <a href="http://en.wikipedia.org/wiki/Solar_system" target="_blank">
+        Please drag any circle to get better view of our Universe by D3.js
+    </a><br /><br />
+    <a href="http://en.wikipedia.org/wiki/Galaxy_morphological_classification" target="_blank">
+      Gray chain is Galaxy classification. Does not show arrows in IE, try other browsers
+    </a></h4>    
+    <h1>The Universe</h1>
+    <script src="http://d3js.org/d3.v3.min.js" ></script>
+    <script>
+        var links = [
+            { source: "Intro to Astronomy", target: "Universe", type: "next" },
+            { source: "Intro to Astronomy", target: "Hubble's Galaxies Classification", type: "multi" },
+          { source: "Planet", target: "Planet with satellites and rings", type: "next" },
+          { source: "Planet", target: "Star System", type: "next" },
+        { source: "Star System", target: "Star Cluster with comets", type: "next" },
+        { source: "Star Cluster with comets", target: "Galaxy", type: "next" },
+        { source: "Galaxy", target: "Galaxy Cluster", type: "next" },
+        { source: "Galaxy", target: "Galaxy Cluster", type: "next" },
+        { source: "Galaxy Cluster", target: "The Universe", type: "next" },
+        { source: "S0 (Lenticular)", target: "Sa (Spiral e.g. Milky Way)", type: "multi" },
+         { source: "S0 (Lenticular)", target: "Irregular (e.g Magellanic Clouds)", type: "multi" },
+        { source: "S0 (Lenticular)", target: "SBa (Spiral Barred)", type: "multi" },
+        { source: "S0 (Lenticular)", target: "E7 (Elliptical)", type: "multi" },
+        { source: "E7 (Elliptical)", target: "E5", type: "multi" },
+        { source: "E5", target: "E0 (sphere)", type: "multi" },
+        { source: "Sa (Spiral e.g. Milky Way)", target: "Sb", type: "multi" },
+        { source: "Sb", target: "Sc", type: "multi" },
+         { source: "SBa (Spiral Barred)", target: "SBb", type: "multi" },
+         { source: "SBb", target: "SBc", type: "multi" },
+        ];
+        var nodes = {};
+        // Compute the distinct nodes from the links.
+        links.forEach(function (link) {
+            link.source = nodes[link.source] || (nodes[link.source] = { name: link.source });
+            link.target = nodes[link.target] || (nodes[link.target] = { name: link.target });
+        });
+
+        var width = 1000,
+            height = 500;
+
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(links)
+            .size([width, height])
+            .linkDistance(60)
+            .charge(-300)
+            .on("tick", tick)
+            .start();
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Per-type markers, as they don't inherit styles.
+        svg.append("defs").selectAll("marker")
+            .data(["multi", "next"])
+          .enter().append("marker")
+            .attr("id", function (d) { return d; })
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", -1.5)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr("orient", "auto")
+          .append("path")
+            .attr("d", "M0,-5L10,0L0,5");
+
+        var path = svg.append("g").selectAll("path")
+            .data(force.links())
+          .enter().append("path")
+            .attr("class", function (d) { return "link " + d.type; })
+            .attr("marker-end", function (d) { return "url(#" + d.type + ")"; });
+
+        var circle = svg.append("g").selectAll("circle")
+            .data(force.nodes())
+          .enter().append("circle")
+            .attr("r", 6)
+            .call(force.drag);
+
+        var text = svg.append("g").selectAll("text")
+            .data(force.nodes())
+          .enter().append("text")
+            .attr("x", 8)
+            .attr("y", ".31em")
+            .text(function (d) { return d.name; });
+
+        // Use elliptical arc path segments to doubly-encode directionality.
+        function tick() {
+            path.attr("d", linkArc);
+            circle.attr("transform", transform);
+            text.attr("transform", transform);
+        }
+        function linkArc(d) {
+            var dx = d.target.x - d.source.x,
+                dy = d.target.y - d.source.y,
+                dr = Math.sqrt(dx * dx + dy * dy);
+            return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+        }
+        function transform(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        }
+    </script>
+    <fieldset>
+        <legend>The Universe by SVG - few lines of code - not a heavy picture</legend>
+    <svg width="710" height="710">
+        <circle cx="400" cy="400" r="300" stroke="green" stroke-width="4" text-anchor="middle" />
+        <text x="350" y="150" fill="red">The Universe</text>
+        <circle cx="400" cy="400" r="220" stroke="green" stroke-width="4" />
+        <text x="370" y="220" fill="red">Galaxy</text>
+        <circle cx="400" cy="400" r="160" stroke="green" stroke-width="4" />
+        <text x="350" y="280" fill="red">Star System</text>
+        <circle cx="400" cy="400" r="100" stroke="green" stroke-width="4" />
+        <text x="350" y="370" fill="red">Planets &</text>
+        <text x="330" y="390" fill="red">Secondary Bodies</text>
+    </svg>
+        </fieldset>
+    <fieldset>
+        <legend>Controversy Q&A in Astronomy</legend>
+        Q: If the Universe is expanding, why do galaxies hold position relatively each other in any Galaxy Cluster?&nbsp; ;-)
+        <br />
+        A: The partially wrong answer is: Only Galaxy Clusters are expanding. The right answer is: It is partially wrong question.<br /><br />
+        <a href="http://Webscibiz.com/my/contact.aspx" target="_blank">Submit your opinion or tricky question in Astronomy</a>
+    </fieldset>
+ 
+        <h3>3D Geodesic body in Star System</h3>  
+    <div id="subdivision">
+  <input type="range" min="1" max="12" value="4">
+  <output name="subdivision"></output>
+</div>
+<script src="http://d3js.org/d3.geodesic.v0.min.js"></script>
+    <script>
+        var width = 960,
+            height = 500;
+
+        var velocity = [.010, .005],
+            t0 = Date.now();
+
+        var projection = d3.geo.orthographic()
+            .scale(height / 2 - 10);
+
+        var canvas = d3.select("body").append("canvas")
+            .attr("width", width)
+            .attr("height", height);
+
+        var context = canvas.node().getContext("2d");
+
+        context.strokeStyle = "#000";
+        context.lineWidth = .5;
+
+        var faces;
+
+        var output = d3.select("output");
+
+        var input = d3.select("input")
+            .on("change", function () { geodesic(+this.value); })
+            .each(function () { geodesic(+this.value); });
+
+        d3.timer(function () {
+            var time = Date.now() - t0;
+            projection.rotate([time * velocity[0], time * velocity[1]]);
+            redraw();
+        });
+
+        function redraw() {
+            context.clearRect(0, 0, width, height);
+
+            faces.forEach(function (d) {
+                d.polygon[0] = projection(d[0]);
+                d.polygon[1] = projection(d[1]);
+                d.polygon[2] = projection(d[2]);
+                if (d.visible = d.polygon.area() > 0) {
+                    context.fillStyle = d.fill;
+                    context.beginPath();
+                    drawTriangle(d.polygon);
+                    context.fill();
+                }
+            });
+
+            context.beginPath();
+            faces.forEach(function (d) {
+                if (d.visible) {
+                    drawTriangle(d.polygon);
+                }
+            });
+            context.stroke();
+        }
+
+        function drawTriangle(triangle) {
+            context.moveTo(triangle[0][0], triangle[0][1]);
+            context.lineTo(triangle[1][0], triangle[1][1]);
+            context.lineTo(triangle[2][0], triangle[2][1]);
+            context.closePath();
+        }
+
+        function geodesic(subdivision) {
+            output.text(subdivision);
+
+            faces = d3.geodesic.polygons(subdivision).map(function (d) {
+                d = d.coordinates[0];
+                d.pop(); // use an open polygon
+                d.fill = d3.hsl(d[0][0], 1, .5) + "";
+                d.polygon = d3.geom.polygon(d.map(projection));
+                return d;
+            });
+
+            redraw();
+        }
+</script>
+    <iframe src="webScibiz.com/footer.html" width="100%" seamless="seamless" />
+</body>
+</html>
