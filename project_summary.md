@@ -1,33 +1,40 @@
 # Project Title
-Insert the name of your project
+Universe
 
 ## Authors
-- Insert main author name, surname, github account
-- Insert other author(s) name, surname, github account (one per list element)
+- Steve Pimen
+- StevePimen@gmail.com
 
 ## Description
-Insert a description containing about 100 to 150 words, including your motivation and the meaning behind your idea and execution. The Judges will be keen to know how your idea pushes the boundaries of code and technology. 
+The project delivers Astronomy basics - The Universe model in HTML5 SVG and d3js.org. The irony is: the project does not have heavy pictures in the Art ;-) It contines code only. The project also shows Hubble's Galaxy classification by one of D3 Javascript library - d3js.org . Any human must be uncomfortable if there is no answer on the basic question: Where I am??. The answer is: you are on the 3rd planet of the Solar (Star) System in the edge of the Milky Way (spiral) Galaxy
 
 ## Link to Prototype
-NOTE: If your project lives online you can add one or more links here. Make sure you have a stable version of your project running before linking it.
-
-[Example Link](http://www.google.com "Example Link")
+[Project Link](http://webscibiz.com/my/universe.html "Project Link")
 
 ## Example Code
-NOTE: Wrap your code blocks or any code citation by using ``` like the example below.
+SVG code for The Universe model
 ```
-function test() {
-  console.log("Printing a test");
-}
+<fieldset>
+        <legend>The Universe by SVG - few lines of code - not a heavy picture</legend>
+    <svg width="710" height="710">
+        <circle cx="400" cy="400" r="300" stroke="green" stroke-width="4" text-anchor="middle"></circle>
+        <text x="350" y="150" fill="red">The Universe</text>
+        <circle cx="400" cy="400" r="220" stroke="green" stroke-width="4"></circle>
+        <text x="370" y="220" fill="red">Galaxy</text>
+        <circle cx="400" cy="400" r="160" stroke="green" stroke-width="4"></circle>
+        <text x="350" y="280" fill="red">Star System</text>
+        <circle cx="400" cy="400" r="100" stroke="green" stroke-width="4"></circle>
+        <text x="350" y="370" fill="red">Planets &amp;</text>
+        <text x="330" y="390" fill="red">Secondary Bodies</text>
+    </svg>
+        </fieldset>
 ```
 ## Links to External Libraries
- NOTE: You can also use this space to link to external libraries or Github repositories you used on your project.
-
-[Example Link](http://www.google.com "Example Link")
+[GitHub Link](https://github.com/stevepimen/devart-template/edit/master/project_summary.md "GitHub Link")
+[D3 Link](http://d3js.org "D3 Link")
 
 ## Images & Videos
-NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
+
 
 ![Example Image](project_images/cover.jpg?raw=true "Example Image")
 
-https://www.youtube.com/watch?v=30yGOxJJ2PQ
